@@ -8,6 +8,7 @@ import (
 )
 
 func TestValid(t *testing.T) {
+	t.Parallel()
 	assert.True(t, iso4217.EUR.Valid())
 	assert.True(t, iso4217.Currency("EUR").Valid())
 	assert.False(t, iso4217.Currency("").Valid())
@@ -15,6 +16,7 @@ func TestValid(t *testing.T) {
 }
 
 func TestString(t *testing.T) {
+	t.Parallel()
 	assert.Equal(t, "EUR", iso4217.EUR.String())
 	assert.Equal(t, "EUR", iso4217.Currency("EUR").String())
 }
