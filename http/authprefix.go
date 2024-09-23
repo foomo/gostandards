@@ -13,7 +13,7 @@ const (
 	AuthPrefixNegotiate   AuthPrefix = "Negotiate"        // SPNEGO-based Kerberos and NTLM Authentication
 	AuthPrefixOAuth       AuthPrefix = "OAuth"            // OAuth 1.0 Authentication
 	AuthPrefixSCRAMSHA256 AuthPrefix = "SCRAM-SHA-256"    // Salted Challenge Response Authentication Mechanism (SCRAM)
-	AuthPrefixApiKey      AuthPrefix = "ApiKey"           // Custom API key-based authentication
+	AuthPrefixAPIKey      AuthPrefix = "ApiKey"           // Custom API key-based authentication
 )
 
 func (p AuthPrefix) String() string {
