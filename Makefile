@@ -61,6 +61,12 @@ test.update:
 	@echo "〉running tests with -update flag"
 	@GO_TEST_TAGS=-skip go test -tags=safe -update -coverprofile=coverage.out -update ./...
 
+.PHONY: fmt
+## Run format
+fmt:
+	@echo "〉formatting files"
+	@golangci-lint fmt ./...
+
 .PHONY: lint
 ## Run linter
 lint:
