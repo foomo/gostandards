@@ -3,7 +3,7 @@
 	--vp-c-brand-2: rgb(27, 85, 140);
 	--vp-c-brand-3: rgb(27, 85, 140);
 	--vp-code-color: #444;
-	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-color: rgb(27, 85, 140);
 	--vp-home-hero-name-background: -webkit-linear-gradient(
 		90deg,
 		rgb(27, 85, 140),

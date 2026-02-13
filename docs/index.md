@@ -3,8 +3,11 @@ layout: home
 
 hero:
   name: gostandards
-  text: Collection of standards as types
-  tagline: Type-safe Go constants for ISO 3166, ISO 4217, and HTTP standards.
+  image:
+    src: /logo.png
+    alt: gostandards
+  text: Collection of standards as go types
+  tagline: Type-safe Go constants for ISO 3166, ISO 4217, …
   actions:
     - theme: brand
       text: Get Started

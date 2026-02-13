@@ -1,11 +1,4 @@
 import { defineConfig } from 'vitepress'
-import {
-	groupIconMdPlugin,
-	groupIconVitePlugin,
-} from 'vitepress-plugin-group-icons'
-import llmstxt, { copyOrDownloadAsMarkdownButtons } from 'vitepress-plugin-llms'
-
-const version = 'latest'
 
 export default defineConfig({
 	base: '/gostandards/',
@@ -18,16 +11,7 @@ export default defineConfig({
 			{
 				text: 'Getting Started',
 				link: '/guide/getting-started',
-			},
-			{
-				text: `${version}`,
-				items: [
-					{
-						text: 'Release Notes',
-						link: 'https://github.com/foomo/gostandards/releases',
-					},
-				],
-			},
+			}
 		],
 		sidebar: [
 			{
@@ -40,9 +24,9 @@ export default defineConfig({
 			{
 				text: 'Standards',
 				items: [
+					{ text: 'HTTP', link: '/standards/http' },
 					{ text: 'ISO 3166 - Country Codes', link: '/standards/iso3166' },
 					{ text: 'ISO 4217 - Currency Codes', link: '/standards/iso4217' },
-					{ text: 'HTTP', link: '/standards/http' },
 				],
 			},
 			{
@@ -123,19 +107,7 @@ export default defineConfig({
 		theme: {
 			dark: 'one-dark-pro',
 			light: 'github-light',
-		},
-		config(md) {
-			md.use(groupIconMdPlugin)
-			md.use(copyOrDownloadAsMarkdownButtons)
-		},
-	},
-	vite: {
-		plugins: [
-			groupIconVitePlugin(),
-			llmstxt({
-				excludeIndexPage: false,
-			}),
-		],
+		}
 	},
 	sitemap: {
 		hostname: 'https://foomo.github.io/gostandards',

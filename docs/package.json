@@ -2,8 +2,7 @@
 	"name": "docs",
 	"devDependencies": {
 		"micromark-util-decode-string": "2.0.1",
-		"vitepress": "1.6.4",
-		"vitepress-plugin-group-icons": "1.7.1"
+		"vitepress": "1.6.4"
 	},
 	"private": true,
 	"scripts": {
