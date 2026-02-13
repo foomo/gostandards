@@ -1,0 +1,24 @@
+// Code generated {{.generator}}; DO NOT EDIT.
+
+package iso4217
+
+const (
+{{- range .currencies}}
+	Code{{.Code}} Code = "{{.Code}}" // {{.Name}}
+{{- end}}
+)
+
+func (c Code) String() string {
+	return string(c)
+}
+
+func (c Code) Valid() bool {
+	switch c {
+	case {{- range $i, $c := .currencies}}{{if $i}},{{end}}
+		Code{{$c.Code}}
+	{{- end}}:
+		return true
+	default:
+		return false
+	}
+}

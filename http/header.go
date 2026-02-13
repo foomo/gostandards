@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+// Header represents a standard HTTP header.
 type Header string
 
 const (
@@ -132,14 +133,17 @@ const (
 	HeaderXXSSProtection                  Header = "X-XSS-Protection"
 )
 
+// String returns the string representation of the Header type.
 func (h Header) String() string {
 	return string(h)
 }
 
+// Add adds a value to the specified header using the Header's string representation as the key.
 func (h Header) Add(header http.Header, value string) {
 	header.Add(h.String(), value)
 }
 
+// Get returns the value of the specified header using the Header's string representation as the key.'
 func (h Header) Get(header http.Header) string {
 	return header.Get(h.String())
 }

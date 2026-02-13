@@ -1,5 +1,6 @@
 package http
 
+// Encoding represents a specific data encoding format, typically used for compression or content transformation.
 type Encoding string
 
 const (
@@ -10,6 +11,7 @@ const (
 	EncodingCompress Encoding = "compress" // Deprecated Unix 'compress' algorithm
 )
 
+// String returns the string representation of the Encoding type.
 func (e Encoding) String() string {
 	return string(e)
 }
