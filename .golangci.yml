@@ -67,6 +67,7 @@ linters:
         - name: var-naming
           disabled: true
   exclusions:
+    generated: disable
     presets:
       - comments
       - common-false-positives
@@ -87,6 +88,7 @@ formatters:
     - gofmt
     - goimports
   exclusions:
+    generated: disable
     paths:
       - tmp
       - third_party$

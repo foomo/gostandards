@@ -75,7 +75,7 @@ const (
 	CodeKES Code = "KES" // Kenyan Shilling
 	CodeKGS Code = "KGS" // Som
 	CodeKHR Code = "KHR" // Riel
-	CodeKMF Code = "KMF" // Comorian Franc 
+	CodeKMF Code = "KMF" // Comorian Franc
 	CodeKPW Code = "KPW" // North Korean Won
 	CodeKRW Code = "KRW" // Won
 	CodeKWD Code = "KWD" // Kuwaiti Dinar
