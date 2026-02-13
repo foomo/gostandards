@@ -67,7 +67,6 @@ linters:
         - name: var-naming
           disabled: true
   exclusions:
-    generated: lax
     presets:
       - comments
       - common-false-positives
@@ -88,7 +87,6 @@ formatters:
     - gofmt
     - goimports
   exclusions:
-    generated: lax
     paths:
       - tmp
       - third_party$
