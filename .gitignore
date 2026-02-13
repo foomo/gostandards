@@ -37,3 +37,10 @@ go.work.sum
 
 ## Mise
 !.mise.toml
+
+## Vitepress
+node_modules/
+!docs/.vitepress
+docs/.vitepress/*
+!docs/.vitepress/theme/
+!docs/.vitepress/config.mts

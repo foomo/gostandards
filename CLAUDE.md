@@ -17,7 +17,8 @@ make lint           # Run golangci-lint
 make lint.fix       # Auto-fix lint violations
 make tidy           # Run go mod tidy
 make outdated       # Show outdated direct dependencies
-make docs           # Open go docs
+make docs           # Start VitePress docs dev server
+make godocs         # Open go docs
 ```
 
 Run a single test:
@@ -39,6 +40,10 @@ Each standard lives in its own package exporting a string-based type with consta
 - **`iso3166/`** — `Alpha2` and `Alpha3` types (strings) with country code constants (e.g., `Alpha2US`, `Alpha3USA`). Code is **generated** — do not edit `code_gen.go` directly.
 - **`http/`** — `Header`, `Encoding`, and `AuthPrefix` types (strings) with standard HTTP constants
 - **`cmd/generate/`** — Shared code generator that produces `code_gen.go` for both `iso3166` and `iso4217` from remote CSV sources using Go templates. Run `make generate` or `go generate ./...` to regenerate.
+
+## Documentation
+
+Uses [VitePress](https://vitepress.dev) for project documentation, deployed as a GitHub Pages site. Source files live in `docs/`. Run `make docs` to start the local dev server (`bun run dev`).
 
 ## Linting
 
