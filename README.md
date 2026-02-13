@@ -12,7 +12,29 @@
 
 ## Standards
 
-- [ISO-4217](https://en.wikipedia.org/wiki/ISO_4217)
+- [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) - Country codes (Alpha-2 & Alpha-3)
+- [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) - Currency codes
+- HTTP headers, content encodings & authorization prefixes
+
+## Usage
+
+```go
+import (
+	"github.com/foomo/gostandards/iso3166"
+	"github.com/foomo/gostandards/iso4217"
+	gohttp "github.com/foomo/gostandards/http"
+)
+
+// ISO 3166-1 country codes
+country := iso3166.Alpha2US   // "US"
+alpha3 := iso3166.Alpha3USA   // "USA"
+
+// ISO 4217 currency codes
+currency := iso4217.CodeUSD   // "USD"
+
+// HTTP constants
+header := gohttp.HeaderContentType  // "Content-Type"
+```
 
 ## How to Contribute
 

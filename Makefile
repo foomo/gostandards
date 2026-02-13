@@ -30,10 +30,16 @@ endif
 .PHONY: doc
 
 ### Tasks
+
 .PHONY: tidy
 ## Run go mod tidy
 tidy:
 	@go mod tidy
+
+.PHONY: generate
+## Run go generate
+generate:
+	@go generate ./...
 
 .PHONY: test
 ## Run tests

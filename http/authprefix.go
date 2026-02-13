@@ -1,5 +1,6 @@
 package http
 
+// AuthPrefix represents a string type used for authentication scheme prefixes in HTTP headers.
 type AuthPrefix string
 
 const (
@@ -16,10 +17,12 @@ const (
 	AuthPrefixAPIKey      AuthPrefix = "ApiKey"           // Custom API key-based authentication
 )
 
+// String returns the string representation of the AuthPrefix type.
 func (p AuthPrefix) String() string {
 	return string(p)
 }
 
+// Set returns the string representation of the AuthPrefix type with a space and the given value.
 func (p AuthPrefix) Set(value string) string {
 	return p.String() + " " + value
 }

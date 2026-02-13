@@ -1,0 +1,24 @@
+// Code generated {{.generator}}; DO NOT EDIT.
+
+package iso3166
+
+const (
+{{- range .countries}}
+	Alpha3{{.Alpha3}} Alpha3 = "{{.Alpha3}}" // {{.Name}}
+{{- end}}
+)
+
+func (c Alpha3) String() string {
+	return string(c)
+}
+
+func (c Alpha3) Valid() bool {
+	switch c {
+	case {{- range $i, $c := .countries}}{{if $i}},{{end}}
+		Alpha3{{$c.Alpha3}}
+	{{- end}}:
+		return true
+	default:
+		return false
+	}
+}

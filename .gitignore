@@ -10,6 +10,11 @@
 !.gitkeep
 !.gitignore
 
+## Claude
+!.claude/
+.claude/*
+!.claude/settings.json
+
 ## GitHub
 !.github/
 
