@@ -1,25 +1,54 @@
 .DEFAULT_GOAL:=help
 -include .makerc
 
+# --- Config -----------------------------------------------------------------
+
+# Newline hack for error output
+define br
+
+
+endef
+
 # --- Targets -----------------------------------------------------------------
 
-## === Tasks ===
+# This allows us to accept extra arguments
+%: .mise .lefthook
+	@:
 
+.PHONY: .lefthook
+# Configure git hooks for lefthook
+.lefthook:
+	@lefthook install --reset-hooks-path
+
+.PHONY: .mise
+# Install dependencies
+.mise:
+ifeq (, $(shell command -v mise))
+	$(error $(br)$(br)Please ensure you have 'mise' installed and activated!$(br)$(br)  $$ brew update$(br)  $$ brew install mise$(br)$(br)See the documentation: https://mise.jdx.dev/getting-started.html)
+endif
+	@mise install
 .PHONY: doc
-## Open go docs
-doc:
-	@open "http://localhost:6060/pkg/github.com/foomo/gostandards/"
-	@godoc -http=localhost:6060 -play
+
+### Tasks
+.PHONY: tidy
+## Run go mod tidy
+tidy:
+	@go mod tidy
 
 .PHONY: test
 ## Run tests
 test:
-	@go test -coverprofile=coverage.out -race -json ./... | gotestfmt
+	@GO_TEST_TAGS=-skip go test -tags=safe -coverprofile=coverage.out ./...
+
+.PHONY: test.race
+## Run tests with `-race` flag
+test.race:
+	@GO_TEST_TAGS=-skip,race go test -tags=safe -coverprofile=coverage.out -update ./...
 
 .PHONY: test.update
-## Run tests and update snapshots
+## Run tests with `-update` flag
 test.update:
-	@go test -update -coverprofile=coverage.out -race -json ./... | gotestfmt
+	@GO_TEST_TAGS=-skip go test -tags=safe -update -coverprofile=coverage.out -update ./...
 
 .PHONY: lint
 ## Run linter
@@ -31,46 +60,36 @@ lint:
 lint.fix:
 	@golangci-lint run --fix
 
-.PHONY: tidy
-## Run go mod tidy
-tidy:
-	@go mod tidy
-
 .PHONY: outdated
 ## Show outdated direct dependencies
 outdated:
 	@go list -u -m -json all | go-mod-outdated -update -direct
 
-## === Utils ===
+### Docs
 
+.PHONY: docs
+## Open go docs
+docs:
+	@go doc -http
+
+### Utils
+
+.PHONY: help
 ## Show help text
 help:
+	@echo ""
+	@echo "Welcome to gostandards!"
+	@echo "\nUsage:\n  make [task]"
 	@awk '{ \
-			if ($$0 ~ /^.PHONY: [a-zA-Z\-\_0-9]+$$/) { \
-				helpCommand = substr($$0, index($$0, ":") + 2); \
-				if (helpMessage) { \
-					printf "\033[36m%-23s\033[0m %s\n", \
-						helpCommand, helpMessage; \
-					helpMessage = ""; \
-				} \
-			} else if ($$0 ~ /^[a-zA-Z\-\_0-9.]+:/) { \
-				helpCommand = substr($$0, 0, index($$0, ":")); \
-				if (helpMessage) { \
-					printf "\033[36m%-23s\033[0m %s\n", \
-						helpCommand, helpMessage"\n"; \
-					helpMessage = ""; \
-				} \
-			} else if ($$0 ~ /^##/) { \
-				if (helpMessage) { \
-					helpMessage = helpMessage"\n                        "substr($$0, 3); \
-				} else { \
-					helpMessage = substr($$0, 3); \
-				} \
-			} else { \
-				if (helpMessage) { \
-					print "\n                        "helpMessage"\n" \
-				} \
-				helpMessage = ""; \
-			} \
-		}' \
-		$(MAKEFILE_LIST)
+		if($$0 ~ /^### /){ \
+			if(help) printf "%-23s %s\n\n", cmd, help; help=""; \
+			printf "\n%s:\n", substr($$0,5); \
+		} else if($$0 ~ /^[a-zA-Z0-9._-]+:/){ \
+			cmd = substr($$0, 1, index($$0, ":")-1); \
+			if(help) printf "  %-23s %s\n", cmd, help; help=""; \
+		} else if($$0 ~ /^##/){ \
+			help = help ? help "\n                          " substr($$0,3) : substr($$0,3); \
+		} else if(help){ \
+			print "\n                        " help "\n"; help=""; \
+		} \
+	}' $(MAKEFILE_LIST)

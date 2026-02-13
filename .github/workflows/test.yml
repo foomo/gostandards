@@ -1,37 +1,46 @@
-name: Test
+name: Test Branch
 
 on:
   push:
     branches: [ main ]
   pull_request:
+  merge_group:
   workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-go@v5
+      - uses: jdx/mise-action@v3
+
+      - uses: actions/setup-go@v6
         with:
-          go-version: 'stable'
+          check-latest: true
+          go-version-file: 'go.mod'
 
-      - uses: gotesttools/gotestfmt-action@v2
+      - name: Setup golangci-lint cache
+        uses: actions/cache@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ~/.cache/golangci-lint
+          key: ${{ runner.os }}-golangci-lint-${{ hashFiles('**/go.mod') }}
+          restore-keys: |
+            ${{ runner.os }}-golangci-lint-
 
-      - uses: golangci/golangci-lint-action@v6
-        with:
-          version: latest
-          args: --timeout=5m
+      - name: Run tidy
+        run: make tidy && git diff --exit-code
 
-      - run: make test
+      - name: Run lint
+        run: make lint
 
-      - uses: coverallsapp/github-action@v2
-        with:
-          file: coverage.out
+      - name: Run test
+        run: make test
 
